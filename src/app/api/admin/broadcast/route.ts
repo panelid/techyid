@@ -36,9 +36,7 @@ export async function POST(req: NextRequest) {
       try {
         const res = await fetch("https://api.resend.com/emails", {
           method: "POST",
-          headers: { Authorization: *** ${resendKey}`, "Content-Type": "application/json" },
-          // @ts-ignore - Cloudflare Workers fetchTunnel bypasses TLS interception
-          cf: { fetchTunnel: true },
+          headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
           body: JSON.stringify({ from: "noreply@techy.id", to: batch, subject, html }),
         });
         if (res.ok) { sent += batch.length; }
