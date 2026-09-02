@@ -1,23 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
-import { getDB } from "@/lib/db";
 
-export async function GET() {
-  let env: Record<string, unknown> = {};
-  try {
-    env = getCloudflareContext().env as Record<string, unknown>;
-  } catch {
-    env = {};
-  }
+export const runtime = "edge";
 
-  const db = await getDB();
-
+export async function GET(req: NextRequest) {
+  const { env } = getCloudflareContext() as any;
+  const rk = env?.RESEND_API_KEY || "";
   return NextResponse.json({
-    keys: Object.keys(env),
-    has_db: !!db,
-    has_session_secret: !!env.SESSION_SECRET,
-    has_resend_api_key: !!env.RESEND_API_KEY,
-    has_cf_api_token: Boolean(env.CF_API_TOKEN),
-    has_cf_zone_id: Boolean(env.CF_ZONE_ID),
+    hasResend: !!rk,
+    prefix: rk.slice(0, 8),
+    len: rk.length,
+    hasCfToken: !!env?.CF_API_TOKEN,
+    hasSession: !!env?.SESSION_SECRET,
   });
 }
