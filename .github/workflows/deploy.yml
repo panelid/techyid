@@ -30,10 +30,10 @@ jobs:
           CF_API_EMAIL: ${{ secrets.CF_API_EMAIL }}
         run: |
           echo "$(openssl rand -hex 32)" | npx wrangler secret put SESSION_SECRET
-          echo "$RESEND_API_KEY" | npx wrangler secret put RESEND_API_KEY
-          echo "$CLOUDFLARE_API_TOKEN" | npx wrangler secret put CF_API_TOKEN
-          echo "$CF_ZONE_ID" | npx wrangler secret put CF_ZONE_ID
-          echo "$CF_API_EMAIL" | npx wrangler secret put CF_API_EMAIL
+          printf '%s' "$RESEND_API_KEY" | npx wrangler secret put RESEND_API_KEY
+          printf '%s' "$CLOUDFLARE_API_TOKEN" | npx wrangler secret put CF_API_TOKEN
+          printf '%s' "$CF_ZONE_ID" | npx wrangler secret put CF_ZONE_ID
+          printf '%s' "$CF_API_EMAIL" | npx wrangler secret put CF_API_EMAIL
       - name: Deploy to Cloudflare Workers via wrangler
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
