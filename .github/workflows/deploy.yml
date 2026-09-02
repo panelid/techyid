@@ -21,6 +21,19 @@ jobs:
         run: npm run build
       - name: Build OpenNext for Cloudflare
         run: npm run pages:build
+      - name: Set Worker Secrets
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_API_EMAIL: ${{ secrets.CF_API_EMAIL }}
+        run: |
+          echo "$(openssl rand -hex 32)" | npx wrangler secret put SESSION_SECRET
+          echo "$RESEND_API_KEY" | npx wrangler secret put RESEND_API_KEY
+          echo "$CLOUDFLARE_API_TOKEN" | npx wrangler secret put CF_API_TOKEN
+          echo "$CF_ZONE_ID" | npx wrangler secret put CF_ZONE_ID
+          echo "$CF_API_EMAIL" | npx wrangler secret put CF_API_EMAIL
       - name: Deploy to Cloudflare Workers via wrangler
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
