@@ -153,11 +153,11 @@ export default function LoginPage() {
   return (
     <div style={styles.body}>
       <nav style={styles.nav}>
-        <div style={styles.logo} onClick={() => router.push("/")}>⚡ door<span>.id</span></div>
+        <div style={styles.logo} onClick={() => router.push("/")}>⚡ techy<span>.id</span></div>
       </nav>
       <div style={styles.container}>
         <div style={styles.card}>
-          <h1 style={styles.title}>Login to Door.id</h1>
+          <h1 style={styles.title}>Login to Techy.id</h1>
           {error && <div style={styles.error}>{error}</div>}
           {success ? (
             <div style={styles.successBox}>

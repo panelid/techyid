@@ -19,7 +19,7 @@ function getSecret(): string {
   }
   
   // HARDCODED FALLBACK FOR PRODUCTION DEBUGGING
-  return "door-id-prod-session-secret-v1-2026";
+  return "techy-id-prod-session-secret-v1-2026";
 }
 const EXPIRY_DAYS = 30;
 

@@ -3,7 +3,7 @@
 
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 
-export const CHALLENGE_COOKIE = "__door_pk_challenge";
+export const CHALLENGE_COOKIE = "__techy_pk_challenge";
 
 function getSecret(): string {
   // Use same secret as session auth for simplicity

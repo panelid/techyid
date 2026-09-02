@@ -413,7 +413,7 @@ function BroadcastTab() {
   };
   return (
     <div style={{ border: C.border, borderRadius: C.radius, padding: 16, background: "#fff" }}>
-      <div style={{ fontSize: 12, color: "#888", marginBottom: 10 }}>Kirim email ke semua user terdaftar via noreply@x.door.id. Gunakan limit untuk test (mis: 2).</div>
+      <div style={{ fontSize: 12, color: "#888", marginBottom: 10 }}>Kirim email ke semua user terdaftar via noreply@techy.id. Gunakan limit untuk test (mis: 2).</div>
       <label style={{ fontSize: 12, fontWeight: 700 }}>Subject</label>
       <input value={subject} onChange={e => setSubject(e.target.value)} style={{ width: "100%", border: C.border, borderRadius: 8, padding: "8px 10px", margin: "4px 0 12px", fontFamily: "inherit" }} />
       <label style={{ fontSize: 12, fontWeight: 700 }}>HTML Body</label>

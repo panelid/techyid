@@ -25,13 +25,13 @@ export async function GET(req: NextRequest) {
     });
     const [users, links, domains, inbound, outbound, aliases, bans] = cached;
 
-    // KV size (DOOR_SLUGS = prod namespace)
+    // KV size (TECHY_SLUGS = prod namespace)
     let kvKeys = null;
     try {
       const { env } = getCloudflareContext();
       const c = env as any;
       if (c.CF_ACCOUNT_ID && c.CF_API_EMAIL && c.CF_API_TOKEN) {
-        const nsId = "4d703c654beb43b48a0e1775744cc14a"; // DOOR_SLUGS
+        const nsId = "367138400cb041e5b500fd2517ef99ef"; // TECHY_SLUGS
         const r = await fetch(
           `https://api.cloudflare.com/client/v4/accounts/${c.CF_ACCOUNT_ID}/storage/kv/namespaces/${nsId}/keys?limit=1`,
           { headers: { "X-Auth-Email": c.CF_API_EMAIL, "X-Auth-Key": c.CF_API_TOKEN } }

@@ -107,7 +107,7 @@ export default function LinkCreator() {
         <div>
           <label className="block text-sm font-medium mb-1">Slug</label>
           <div className="flex items-center gap-2">
-            <span className="text-gray-500">{window?.location?.host || "door.id"}/</span>
+            <span className="text-gray-500">{window?.location?.host || "techy.id"}/</span>
             <input autoComplete="new-password"
               value={slug}
               onChange={(e) => setSlug(e.target.value)}

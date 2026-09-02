@@ -18,7 +18,7 @@ async function ensureEmailRoutingForDomain(zoneId: string, domain: string, desti
   const base = `https://api.cloudflare.com/client/v4/zones/${zoneId}/email/routing/rules`;
   const headers = { "X-Auth-Email": cf.email, "X-Auth-Key": cf.token, "Content-Type": "application/json" };
   const payload = {
-    name: `door custom domain ${domain}`,
+    name: `techy custom domain ${domain}`,
     enabled: true,
     matchers: [{ type: "literal", field: "to", value: `*@${domain}` }],
     actions: [{ type: "forward", value: [destination] }],

@@ -25,7 +25,7 @@ export default function DashboardAgentsPage() {
             Fitur AI Agents sedang dalam pengembangan.
           </p>
           <p style={{ fontSize: 12.5, color: "#999", lineHeight: 1.6 }}>
-            Nanti kamu bisa menghubungkan agent AI ke link &amp; email door.id kamu.
+            Nanti kamu bisa menghubungkan agent AI ke link &amp; email techy.id kamu.
           </p>
         </div>
       </div>

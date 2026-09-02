@@ -32,8 +32,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Resolve from address: alias picker → default alias → noreply@x.door.id
-    let fromAddress = "noreply@x.door.id";
+    // Resolve from address: alias picker → default alias → noreply@techy.id
+    let fromAddress = "noreply@techy.id";
     try {
       if (requestedFrom) {
         const [lp, dom] = String(requestedFrom).toLowerCase().split("@");

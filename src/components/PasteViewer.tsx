@@ -83,7 +83,7 @@ export default function PasteViewer({ slug, content, hasPassword }: {
       <div style={styles.card}>
         <div style={styles.header}>
           <span style={styles.badge}>📄 PASTE</span>
-          <span style={styles.slug}>door.id/{slug}</span>
+          <span style={styles.slug}>techy.id/{slug}</span>
         </div>
         <pre style={styles.content} data-testid="paste-content">{revealedContent}</pre>
       </div>

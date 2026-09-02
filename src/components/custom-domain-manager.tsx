@@ -17,7 +17,7 @@ type Domain = {
   nameservers?: string[];
   provision_error?: string;
   created_at: string;
-  source?: "db" | "resend"; // resend = only exists in Resend, not in Door DB
+  source?: "db" | "resend"; // resend = only exists in Resend, not in Techy DB
 };
 
 export default function CustomDomainManager() {
@@ -73,10 +73,10 @@ export default function CustomDomainManager() {
 
   // Merge DB + Resend domains, dedupe by domain name
   // Rules:
-  // - x.door.id = system domain, never shown
+  // - techy.id = system domain, never shown
   // - DB domains = user custom domains (always shown)
-  // - Resend-only domains (not in DB, not x.door.id) = orphan, shown with delete button
-  const SYSTEM_DOMAINS = ["x.door.id", "door.id", "dalil.workers.dev"];
+  // - Resend-only domains (not in DB, not techy.id) = orphan, shown with delete button
+  const SYSTEM_DOMAINS = ["techy.id", "techy.id", "techy-id.workers.dev"];
   const allDomains = (() => {
     const map = new Map<string, Domain>();
     for (const d of domains) {
@@ -207,7 +207,7 @@ export default function CustomDomainManager() {
   };
 
   const handleDelete = async (domainId: string, domainName: string) => {
-    if (!window.confirm(`Hapus domain "${domainName}"?\n\nIni akan menghapus resource yang dibuat Door.id:\n- Email routing rule\n- Worker domain attachment\n- DNS records Resend\n- Domain dari Resend\n- Data dari Door.id\n\nZone Cloudflare kamu TIDAK dihapus.\n\nTindakan tidak bisa dibatalkan.`)) return;
+    if (!window.confirm(`Hapus domain "${domainName}"?\n\nIni akan menghapus resource yang dibuat Techy.id:\n- Email routing rule\n- Worker domain attachment\n- DNS records Resend\n- Domain dari Resend\n- Data dari Techy.id\n\nZone Cloudflare kamu TIDAK dihapus.\n\nTindakan tidak bisa dibatalkan.`)) return;
     setBusyId(domainId);
     try {
       const res = await fetch(`/api/domains/${domainId}`, { method: "DELETE" });
@@ -306,7 +306,7 @@ export default function CustomDomainManager() {
 
       <p style={{ fontSize: 12, color: "#666", margin: "0 0 10px" }}>
         Terima email: <b>unlimited</b> (Cloudflare gratis). Kirim email (Resend):{" "}
-        <b>{resendDomains.filter((r: any) => !["x.door.id", "door.id"].includes(r.domain)).length}/3</b> domain terpakai.
+        <b>{resendDomains.filter((r: any) => !["techy.id", "techy.id"].includes(r.domain)).length}/3</b> domain terpakai.
       </p>
 
       {loading ? (
@@ -383,7 +383,7 @@ export default function CustomDomainManager() {
 
               {d.source === "resend" && (
                 <p style={{ ...S.rowErr, marginTop: 8, fontSize: 12 }}>
-                  Domain ini hanya terdaftar di Resend (tidak di Door.id). Hapus untuk membebaskan slot domain plan kamu.
+                  Domain ini hanya terdaftar di Resend (tidak di Techy.id). Hapus untuk membebaskan slot domain plan kamu.
                 </p>
               )}
 

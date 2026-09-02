@@ -83,7 +83,7 @@ export async function POST(request: Request) {
       if (!parent?.zone_id) {
         return NextResponse.json({ error: `Zone ${rootDomain} belum tersedia` }, { status: 400 });
       }
-      const verificationToken = `door-verify-${crypto.randomUUID().slice(0, 8)}`;
+      const verificationToken = `techy-verify-${crypto.randomUUID().slice(0, 8)}`;
       try {
         await db.prepare(
           "INSERT INTO custom_domains (user_id, domain, domain_type, parent_domain, zone_id, zone_status, nameservers, verification_token, provision_error, worker_status, email_destination) VALUES (?, ?, 'email_only', ?, ?, ?, ?, ?, NULL, 'skipped', ?)"
@@ -103,7 +103,7 @@ export async function POST(request: Request) {
     // Regular domain: create/lookup zone
     const zone: any = await getOrCreateZone(domain);
     const nameservers = JSON.stringify(zone.name_servers || []);
-    const verificationToken = `door-verify-${crypto.randomUUID().slice(0, 8)}`;
+    const verificationToken = `techy-verify-${crypto.randomUUID().slice(0, 8)}`;
     await db.prepare("INSERT INTO custom_domains (user_id, domain, zone_id, zone_status, nameservers, verification_token, provision_error) VALUES (?, ?, ?, ?, ?, ?, NULL)").bind(user.userId, domain, zone.id, zone.status || "pending", nameservers, verificationToken).run();
     const saved: any = await db.prepare("SELECT id FROM custom_domains WHERE user_id = ? AND domain = ? LIMIT 1").bind(user.userId, domain).first();
 

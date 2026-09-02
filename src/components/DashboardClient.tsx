@@ -55,7 +55,7 @@ export default function DashboardClient({ user, isAdmin }: { user: any; isAdmin?
   }, []);
 
   const handleDelete = async (id: any, slugStr: string) => {
-    if (!confirm(`Hapus link door.id/${slugStr}?`)) return;
+    if (!confirm(`Hapus link techy.id/${slugStr}?`)) return;
     try {
       const res = await fetch(`/api/slugs/${id}`, { method: "DELETE" });
       if (res.ok) {
@@ -104,7 +104,7 @@ export default function DashboardClient({ user, isAdmin }: { user: any; isAdmin?
   return (
     <div style={styles.body}>
       <div className="header" style={styles.header}>
-        <div className="logo" style={styles.logo} onClick={() => router.push("/")}>door<span>.id</span></div>
+        <div className="logo" style={styles.logo} onClick={() => router.push("/")}>techy<span>.id</span></div>
         <div style={{ display: 'flex', gap: 8 }}>
           <button className="header-btn" style={styles.headerBtn} onClick={() => router.push("/")}>+ New Link</button>
           <button className="header-btn" style={{ ...styles.headerBtn, background: '#fff' }} onClick={async () => { await fetch('/api/auth/logout', { method: 'POST' }); router.push('/'); }}>Logout</button>
@@ -140,7 +140,7 @@ export default function DashboardClient({ user, isAdmin }: { user: any; isAdmin?
           <div style={styles.topHeading}>🔥 Link Terpopuler</div>
           {topLinks.map((l) => (
             <div key={l.id} style={styles.topRow}>
-              <span style={styles.topSlug}>door.id/{l.slug}</span>
+              <span style={styles.topSlug}>techy.id/{l.slug}</span>
               <span style={styles.topClicks}><b>{l.click_count || 0}</b> views</span>
             </div>
           ))}
@@ -182,7 +182,7 @@ export default function DashboardClient({ user, isAdmin }: { user: any; isAdmin?
       ) : (
         <div className="cards" style={styles.cards}>
           {filteredSlugs.map((s) => {
-            const fullUrl = typeof window !== 'undefined' ? `${window.location.origin}/${s.slug}` : `https://x.door.id/${s.slug}`;
+            const fullUrl = typeof window !== 'undefined' ? `${window.location.origin}/${s.slug}` : `https://techy.id/${s.slug}`;
             let dest = s.data.url || s.data.phone || (s.data.links ? `${s.data.links.length} links` : '') || (s.data.content ? 'Protected paste' : '');
             return (
               <div key={s.id} className="card" style={styles.card} data-type={s.type}>

@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   // Skip middleware for static assets, API, and main domains
   const isCustomDomain = hostname && 
     !hostname.includes("vercel.app") &&
-    !hostname.endsWith("door.id") &&
+    !hostname.endsWith("techy.id") &&
     hostname !== "localhost";
   
   if (!isCustomDomain) {
@@ -23,13 +23,13 @@ export async function middleware(request: NextRequest) {
   if (!slug || slug.startsWith("_next") || slug.startsWith("api")) {
     // Pass custom domain header to downstream handler
     const response = NextResponse.next();
-    response.headers.set("x-door-custom-domain", hostname);
+    response.headers.set("x-techy-custom-domain", hostname);
     return response;
   }
 
   // Pass custom domain header to downstream handler
   const response = NextResponse.next();
-  response.headers.set("x-door-custom-domain", hostname);
+  response.headers.set("x-techy-custom-domain", hostname);
   return response;
 }
 

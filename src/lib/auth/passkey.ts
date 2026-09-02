@@ -9,18 +9,18 @@ import {
 } from "@simplewebauthn/server";
 
 // RP (Relying Party) identity — derived from the request origin so it works
-// on x.door.id (sandbox) and door.id (production) alike.
+// on techy.id (sandbox) and techy.id (production) alike.
 export function getRPID(requestUrl: string): string {
   try {
     const url = new URL(requestUrl);
     return url.hostname;
   } catch {
-    return "door.id";
+    return "techy.id";
   }
 }
 
 export function getRPName(): string {
-  return "Door.id";
+  return "Techy.id";
 }
 
 // Base64url helpers (same encoding WebAuthn uses)

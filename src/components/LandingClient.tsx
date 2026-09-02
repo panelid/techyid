@@ -65,7 +65,7 @@ export default function LandingClient() {
 
   // Language
   useEffect(() => {
-    const saved = sessionStorage.getItem('door_lang') || 'id';
+    const saved = sessionStorage.getItem('techy_lang') || 'id';
     setLangState(saved);
     document.documentElement.lang = saved;
     if (saved === 'en') document.documentElement.classList.add('lang-en');
@@ -79,7 +79,7 @@ export default function LandingClient() {
     } else {
       document.documentElement.classList.remove('lang-en');
     }
-    sessionStorage.setItem('door_lang', l);
+    sessionStorage.setItem('techy_lang', l);
   };
 
   const handleSubmit = async (type: string) => {
@@ -271,7 +271,7 @@ export default function LandingClient() {
 
       <nav>
         <div className="logo-mark"><div className="logo-mark-d" /></div>
-        <div className="logo"><a href="/">⚡ door<span>.id</span></a></div>
+        <div className="logo"><a href="/">⚡ techy<span>.id</span></a></div>
         <div className="nav-right">
           {/* Desktop auth buttons (>600px) */}
           <div className="nav-auth">
@@ -378,13 +378,13 @@ export default function LandingClient() {
           {/* Short URL */}
           <div id="pane-url" className={`tool-pane${activeTool==='url'?' on':''}`}>
             <label className="tool-label"><span data-id>Nama Link Kamu</span><span data-en>Your Link Slug</span></label>
-            <div className={`tool-slugrow${slugStatus['url']?.state === 'available' ? ' ok' : slugStatus['url']?.state === 'taken' || slugStatus['url']?.state === 'invalid' ? ' no' : ''}`}><span className="tool-prefix">door.id/</span><input autoComplete="new-password" id="url-slug" className="tool-field" value={urlSlug} onChange={e => { setUrlSlug(e.target.value); checkSlug('url', e.target.value); }} placeholder="my-link" /></div>
+            <div className={`tool-slugrow${slugStatus['url']?.state === 'available' ? ' ok' : slugStatus['url']?.state === 'taken' || slugStatus['url']?.state === 'invalid' ? ' no' : ''}`}><span className="tool-prefix">techy.id/</span><input autoComplete="new-password" id="url-slug" className="tool-field" value={urlSlug} onChange={e => { setUrlSlug(e.target.value); checkSlug('url', e.target.value); }} placeholder="my-link" /></div>
             <SlugStatus status={slugStatus['url']} />
             <label className="tool-label"><span data-id>URL Tujuan</span><span data-en>Destination URL</span></label>
             <input autoComplete="new-password" id="url-dest" className="tool-field full" value={urlDest} onChange={e => setUrlDest(e.target.value)} placeholder="https://..." />
             <div className="tool-preview">
               <div className="tp-label"><span data-id>PREVIEW LINK</span><span data-en>LINK PREVIEW</span></div>
-              <div className="tp-row"><span id="url-preview-slug" className="tp-slug">door.id/{urlSlug || 'my-link'}</span><span className="tp-arrow">→</span></div>
+              <div className="tp-row"><span id="url-preview-slug" className="tp-slug">techy.id/{urlSlug || 'my-link'}</span><span className="tp-arrow">→</span></div>
               <div id="url-preview-dest" className="tp-dest">{urlDest || 'https://tujuan-panjang.kamu'}</div>
             </div>
             <button className="tool-submit" onClick={() => handleSubmit('url')}><span data-id>Perpendek URL</span><span data-en>Shorten URL</span></button>
@@ -393,7 +393,7 @@ export default function LandingClient() {
           {/* WhatsApp */}
           <div id="pane-wa" className={`tool-pane${activeTool==='wa'?' on':''}`}>
             <label className="tool-label"><span data-id>Nama Link Kamu</span><span data-en>Your Link Slug</span></label>
-            <div className={`tool-slugrow${slugStatus['wa']?.state === 'available' ? ' ok' : slugStatus['wa']?.state === 'taken' || slugStatus['wa']?.state === 'invalid' ? ' no' : ''}`}><span className="tool-prefix">door.id/</span><input autoComplete="new-password" className="tool-field" value={waSlug} onChange={e => { setWaSlug(e.target.value); checkSlug('wa', e.target.value); }} placeholder="wa-toko" /></div>
+            <div className={`tool-slugrow${slugStatus['wa']?.state === 'available' ? ' ok' : slugStatus['wa']?.state === 'taken' || slugStatus['wa']?.state === 'invalid' ? ' no' : ''}`}><span className="tool-prefix">techy.id/</span><input autoComplete="new-password" className="tool-field" value={waSlug} onChange={e => { setWaSlug(e.target.value); checkSlug('wa', e.target.value); }} placeholder="wa-toko" /></div>
             <SlugStatus status={slugStatus['wa']} />
             <label className="tool-label"><span data-id>Nomor WhatsApp</span><span data-en>WhatsApp Number</span></label>
             <input autoComplete="new-password" className="tool-field full" value={waNumber} onChange={e => setWaNumber(e.target.value)} placeholder="62812xxxxxxx" />
@@ -401,7 +401,7 @@ export default function LandingClient() {
             <input autoComplete="new-password" className="tool-field full" value={waMsg} onChange={e => setWaMsg(e.target.value)} placeholder="Halo kak..." />
             <div className="tool-preview">
               <div className="tp-label"><span data-id>PREVIEW LINK</span><span data-en>LINK PREVIEW</span></div>
-              <div className="tp-row"><span className="tp-slug">door.id/{waSlug || 'wa-toko'}</span><span className="tp-arrow">→</span></div>
+              <div className="tp-row"><span className="tp-slug">techy.id/{waSlug || 'wa-toko'}</span><span className="tp-arrow">→</span></div>
               <div className="tp-dest">{waNumber ? (waMsg ? `wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}` : `wa.me/${waNumber}`) : 'wa.me/62812xxxxxxx'}</div>
             </div>
             <button className="tool-submit" onClick={() => handleSubmit('wa')}><span data-id>Buat Link WhatsApp</span><span data-en>Create WhatsApp Link</span></button>
@@ -410,7 +410,7 @@ export default function LandingClient() {
           {/* Paste */}
           <div id="pane-paste" className={`tool-pane${activeTool==='paste'?' on':''}`}>
             <label className="tool-label"><span data-id>Nama Link Kamu</span><span data-en>Your Link Slug</span></label>
-            <div className={`tool-slugrow${slugStatus['paste']?.state === 'available' ? ' ok' : slugStatus['paste']?.state === 'taken' || slugStatus['paste']?.state === 'invalid' ? ' no' : ''}`}><span className="tool-prefix">door.id/</span><input autoComplete="new-password" className="tool-field" value={pasteSlug} onChange={e => { setPasteSlug(e.target.value); checkSlug('paste', e.target.value); }} placeholder="catatan-rahasia" /></div>
+            <div className={`tool-slugrow${slugStatus['paste']?.state === 'available' ? ' ok' : slugStatus['paste']?.state === 'taken' || slugStatus['paste']?.state === 'invalid' ? ' no' : ''}`}><span className="tool-prefix">techy.id/</span><input autoComplete="new-password" className="tool-field" value={pasteSlug} onChange={e => { setPasteSlug(e.target.value); checkSlug('paste', e.target.value); }} placeholder="catatan-rahasia" /></div>
             <SlugStatus status={slugStatus['paste']} />
             <label className="tool-label"><span data-id>Teks / Kode yang Dibagikan</span><span data-en>Text / Code to Share</span></label>
             <textarea autoComplete="new-password" className="tool-field full tool-textarea" value={pasteContent} onChange={e => setPasteContent(e.target.value)} />
@@ -418,7 +418,7 @@ export default function LandingClient() {
             <input autoComplete="new-password" className="tool-field full" type="password" value={pastePwd} onChange={e => setPastePwd(e.target.value)} placeholder="••••••" />
             <div className="tool-preview">
               <div className="tp-label"><span data-id>PREVIEW LINK</span><span data-en>LINK PREVIEW</span></div>
-              <div className="tp-row"><span className="tp-slug">door.id/{pasteSlug || 'catatan-rahasia'}</span><span className="tp-arrow">→</span></div>
+              <div className="tp-row"><span className="tp-slug">techy.id/{pasteSlug || 'catatan-rahasia'}</span><span className="tp-arrow">→</span></div>
               <div className="tp-dest">🔒 <span data-id>Paste terenkripsi dengan proteksi kata sandi</span><span data-en>Password-protected encrypted paste</span></div>
             </div>
             <button className="tool-submit" onClick={() => handleSubmit('paste')}><span data-id>Buat Paste Terenkripsi</span><span data-en>Create Encrypted Paste</span></button>
@@ -427,7 +427,7 @@ export default function LandingClient() {
           {/* Bio Page */}
           <div id="pane-bio" className={`tool-pane${activeTool==='bio'?' on':''}`}>
             <label className="tool-label"><span data-id>Nama Halaman Bio</span><span data-en>Bio Page Slug</span></label>
-            <div className={`tool-slugrow${slugStatus['bio']?.state === 'available' ? ' ok' : slugStatus['bio']?.state === 'taken' || slugStatus['bio']?.state === 'invalid' ? ' no' : ''}`}><span className="tool-prefix">door.id/</span><input autoComplete="new-password" className="tool-field" value={bioSlug} onChange={e => { setBioSlug(e.target.value); checkSlug('bio', e.target.value); }} placeholder="namakamu" /></div>
+            <div className={`tool-slugrow${slugStatus['bio']?.state === 'available' ? ' ok' : slugStatus['bio']?.state === 'taken' || slugStatus['bio']?.state === 'invalid' ? ' no' : ''}`}><span className="tool-prefix">techy.id/</span><input autoComplete="new-password" className="tool-field" value={bioSlug} onChange={e => { setBioSlug(e.target.value); checkSlug('bio', e.target.value); }} placeholder="namakamu" /></div>
             <SlugStatus status={slugStatus['bio']} />
             <label className="tool-label"><span data-id>Tautan Kamu</span><span data-en>Your Links</span></label>
             {bioLinks.map((link, idx) => (
@@ -440,7 +440,7 @@ export default function LandingClient() {
             <button onClick={() => setBioLinks([...bioLinks, {label:'',url:''}])} style={{width:'100%',padding:8,border:'2px dashed #000',borderRadius:6,background:'#f5f0e8',cursor:'pointer',fontWeight:700,fontSize:12,marginBottom:16}}>+ Tambah Link</button>
             <div className="tool-preview">
               <div className="tp-label"><span data-id>PREVIEW LINK</span><span data-en>LINK PREVIEW</span></div>
-              <div className="tp-row"><span className="tp-slug">door.id/{bioSlug || 'namakamu'}</span><span className="tp-arrow">→</span></div>
+              <div className="tp-row"><span className="tp-slug">techy.id/{bioSlug || 'namakamu'}</span><span className="tp-arrow">→</span></div>
               <div className="tp-dest"><span data-id>Halaman bio kamu dengan semua link</span><span data-en>Your bio page with all links</span></div>
             </div>
             <button className="tool-submit" onClick={() => handleSubmit('bio')}><span data-id>Buat Halaman Bio</span><span data-en>Create Bio Page</span></button>
@@ -461,7 +461,7 @@ export default function LandingClient() {
         <div className="section-head">
           <div className="section-tag">// <span data-id>FITUR</span><span data-en>FEATURES</span></div>
           <h2><span data-id>Semua yang kamu butuh, satu pintu</span><span data-en>Everything you need, one door</span></h2>
-          <p><span data-id>Bukan sekadar pemendek link — door.id adalah infrastruktur identitas digital kamu.</span><span data-en>Not just a link shortener — door.id is your digital identity infrastructure.</span></p>
+          <p><span data-id>Bukan sekadar pemendek link — techy.id adalah infrastruktur identitas digital kamu.</span><span data-en>Not just a link shortener — techy.id is your digital identity infrastructure.</span></p>
         </div>
         <div className="features">
           <div className="feature f-url"><div className="f-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div><h3>Short URL</h3><p><span data-id>Pendekin link panjang jadi slug yang gampang diingat dan dipantau klik-nya real-time.</span><span data-en>Turn long links into memorable slugs with real-time click tracking.</span></p></div>
@@ -479,7 +479,7 @@ export default function LandingClient() {
           <div className="api-text">
             <div className="section-tag">// API</div>
             <h2><span data-id>Identitas untuk AI Agent kamu</span><span data-en>Identity for your AI agents</span></h2>
-            <p><span data-id>door.id menyediakan REST API yang memungkinkan AI agent punya identitas digital sendiri — link, inbox email, dan halaman profil yang bisa di-provision secara programmatic dalam hitungan milidetik.</span><span data-en>door.id provides a REST API that lets AI agents have a real digital identity — links, email inboxes, and profile pages that can be provisioned programmatically in milliseconds.</span></p>
+            <p><span data-id>techy.id menyediakan REST API yang memungkinkan AI agent punya identitas digital sendiri — link, inbox email, dan halaman profil yang bisa di-provision secara programmatic dalam hitungan milidetik.</span><span data-en>techy.id provides a REST API that lets AI agents have a real digital identity — links, email inboxes, and profile pages that can be provisioned programmatically in milliseconds.</span></p>
             <button className="btn-secondary" style={{width:'fit-content',padding:'10px 20px',fontSize:'13px'}} onClick={() => router.push('/docs')}><span data-id>Lihat Dokumentasi API →</span><span data-en>View API Docs →</span></button>
           </div>
           <div className="code-block">
@@ -524,10 +524,10 @@ POST /v1/identities
         </div>
         <div className="faq">
           {[
-            { qId: 'Apa itu door.id?', qEn: 'What is door.id?', aId: 'door.id adalah infrastruktur identitas digital yang menggabungkan short link, bio page, link WhatsApp, paste terenkripsi, email alias, dan API untuk AI agent — dalam satu dashboard.', aEn: 'door.id is digital identity infrastructure combining short links, bio pages, WhatsApp links, encrypted pastes, email aliases, and an API for AI agents — in one dashboard.' },
-            { qId: 'Apakah door.id gratis?', qEn: 'Is door.id free?', aId: 'Ya, ada paket gratis dengan fitur inti. Paket berbayar tersedia untuk custom domain, limit lebih besar, dan akses API penuh.', aEn: "Yes, there's a free plan with core features. Paid plans unlock custom domains, higher limits, and full API access." },
+            { qId: 'Apa itu techy.id?', qEn: 'What is techy.id?', aId: 'techy.id adalah infrastruktur identitas digital yang menggabungkan short link, bio page, link WhatsApp, paste terenkripsi, email alias, dan API untuk AI agent — dalam satu dashboard.', aEn: 'techy.id is digital identity infrastructure combining short links, bio pages, WhatsApp links, encrypted pastes, email aliases, and an API for AI agents — in one dashboard.' },
+            { qId: 'Apakah techy.id gratis?', qEn: 'Is techy.id free?', aId: 'Ya, ada paket gratis dengan fitur inti. Paket berbayar tersedia untuk custom domain, limit lebih besar, dan akses API penuh.', aEn: "Yes, there's a free plan with core features. Paid plans unlock custom domains, higher limits, and full API access." },
             { qId: 'Bisa pakai domain sendiri?', qEn: 'Can I use my own domain?', aId: 'Bisa. Hubungkan domain kamu sendiri untuk short link, bio page, dan email alias biar semuanya tampil sesuai brand kamu.', aEn: 'Yes. Connect your own domain for short links, bio pages, and email aliases so everything matches your brand.' },
-            { qId: 'AI agent bisa pakai door.id?', qEn: 'Can AI agents use door.id?', aId: 'Ya. door.id menyediakan REST API yang memungkinkan AI agent punya identitas digital sendiri — link, inbox email, dan profil.', aEn: 'Yes. door.id provides a REST API that lets AI agents have a real digital identity — links, email inboxes, and profiles.' },
+            { qId: 'AI agent bisa pakai techy.id?', qEn: 'Can AI agents use techy.id?', aId: 'Ya. techy.id menyediakan REST API yang memungkinkan AI agent punya identitas digital sendiri — link, inbox email, dan profil.', aEn: 'Yes. techy.id provides a REST API that lets AI agents have a real digital identity — links, email inboxes, and profiles.' },
             { qId: 'Ada statistik klik-nya?', qEn: 'Does it track clicks?', aId: 'Ada. Setiap link dilengkapi statistik klik real-time yang bisa dipantau langsung dari dashboard.', aEn: 'Yes. Every link comes with real-time click stats viewable directly from the dashboard.' },
           ].map((faq, i) => (
             <div key={i} className={`faq-item${openFaq===i?' open':''}`}>
@@ -550,7 +550,7 @@ POST /v1/identities
 
       {/* FOOTER */}
       <footer className="footer">
-        <p>© 2026 door.id · <span data-id>Dibuat oleh</span><span data-en>Built by</span> <a href="https://linkedin.com/in/sobr" target="_blank" rel="noopener noreferrer">Sobur</a> · <span data-id>Dibangun dengan</span><span data-en>Built with</span> ☁️ Cloudflare</p>
+        <p>© 2026 techy.id · <span data-id>Dibuat oleh</span><span data-en>Built by</span> <a href="https://linkedin.com/in/sobr" target="_blank" rel="noopener noreferrer">Sobur</a> · <span data-id>Dibangun dengan</span><span data-en>Built with</span> ☁️ Cloudflare</p>
       </footer>
 
       {/* [U-1] Success Modal with Copy-to-Clipboard */}
@@ -559,7 +559,7 @@ POST /v1/identities
           <div style={{ background: '#fff', border: '3px solid #000', borderRadius: '8px', padding: 32, maxWidth: 400, width: '100%', boxShadow: '8px 8px 0 #000', textAlign: 'center' }}>
             <h3 style={{ fontSize: 22, fontWeight: 800, marginBottom: 12 }}>✅ Link Berhasil Dibuat!</h3>
             <div style={{ background: '#f5f0e8', border: '2.5px solid #000', borderRadius: '5px', padding: 14, marginBottom: 20, fontFamily: "'DM Mono', monospace", fontSize: 16, fontWeight: 700, color: '#4F46E5', wordBreak: 'break-all' }}>
-              door.id/{createdSlug}
+              techy.id/{createdSlug}
             </div>
             <button
               style={{ width: '100%', padding: 14, fontSize: 14, fontWeight: 700, cursor: 'pointer', border: '2.5px solid #000', borderRadius: '5px', background: copied ? '#10b981' : '#d4ff00', color: copied ? '#fff' : '#000', boxShadow: '4px 4px 0 #000', transition: 'all 0.2s', marginBottom: 10 }}

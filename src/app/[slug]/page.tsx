@@ -12,7 +12,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
   const hostname = headersList.get("host") || "";
   const isCustomDomain =
     hostname &&
-    !hostname.endsWith("door.id") &&
+    !hostname.endsWith("techy.id") &&
     !hostname.endsWith("workers.dev") &&
     !hostname.includes("vercel.app");
 

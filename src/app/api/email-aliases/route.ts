@@ -36,11 +36,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Nama lokal tidak valid. Gunakan huruf, angka, titik, dash." }, { status: 400 });
     }
 
-    // Validate domain: must be x.door.id OR a custom domain owned by user (is_verified = email routing active)
+    // Validate domain: must be techy.id OR a custom domain owned by user (is_verified = email routing active)
     // Alias = sender identity. Receiving works as long as email routing is active.
     // Sending from that alias only works if Resend verified (checked separately at send time).
     const dom = String(domain || "").trim().toLowerCase();
-    const isPlatformDomain = dom === "x.door.id";
+    const isPlatformDomain = dom === "techy.id";
     let isOwnedDomain = false;
 
     if (!isPlatformDomain) {

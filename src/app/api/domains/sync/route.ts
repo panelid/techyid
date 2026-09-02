@@ -22,7 +22,7 @@ async function ensureEmailRouting(zoneId: string, domain: string, destination: s
   const c = cf();
   const base = `https://api.cloudflare.com/client/v4/zones/${zoneId}/email/routing/rules`;
   const headers = { "X-Auth-Email": c.CF_API_EMAIL, "X-Auth-Key": c.CF_API_TOKEN, "Content-Type": "application/json" };
-  const payload = { name: `door ${domain}`, enabled: true, matchers: [{ type: "literal", field: "to", value: `*@${domain}` }], actions: [{ type: "forward", value: [destination] }] };
+  const payload = { name: `techy ${domain}`, enabled: true, matchers: [{ type: "literal", field: "to", value: `*@${domain}` }], actions: [{ type: "forward", value: [destination] }] };
   const res = await fetch(base, { method: "POST", headers, body: JSON.stringify(payload) });
   const body: any = await res.json().catch(() => ({}));
   if (res.ok) return body.result?.id || null;
@@ -116,7 +116,7 @@ export async function POST(request: Request) {
     const wdRes = await fetch(`https://api.cloudflare.com/client/v4/accounts/${c.CF_ACCOUNT_ID}/workers/domains`, {
       method: "PUT",
       headers: { "X-Auth-Email": c.CF_API_EMAIL, "X-Auth-Key": c.CF_API_TOKEN, "Content-Type": "application/json" },
-      body: JSON.stringify({ hostname: domain.domain, service: "door-of-cloudflare", environment: "production" }),
+      body: JSON.stringify({ hostname: domain.domain, service: "techy-id", environment: "production" }),
     });
     const wdBody: any = await wdRes.json().catch(() => ({}));
     if (!wdRes.ok || !wdBody.success) {

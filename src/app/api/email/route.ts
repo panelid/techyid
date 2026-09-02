@@ -7,7 +7,7 @@ async function updateRule(zoneId: string, domain: string, ruleId: string, destin
   const { env } = getCloudflareContext();
   const c = env as any;
   if (!c.CF_API_EMAIL || !c.CF_API_TOKEN) throw new Error("Email service unavailable");
-  const payload = { name: `door custom domain ${domain}`, enabled: true, matchers: [{ type: "literal", field: "to", value: `*@${domain}` }], actions: [{ type: "forward", value: [destination] }] };
+  const payload = { name: `techy custom domain ${domain}`, enabled: true, matchers: [{ type: "literal", field: "to", value: `*@${domain}` }], actions: [{ type: "forward", value: [destination] }] };
   const res = await fetch(`https://api.cloudflare.com/client/v4/zones/${zoneId}/email/routing/rules/${encodeURIComponent(ruleId)}`, { method: "PUT", headers: { "X-Auth-Email": c.CF_API_EMAIL, "X-Auth-Key": c.CF_API_TOKEN, "Content-Type": "application/json" }, body: JSON.stringify(payload) });
   if (!res.ok) throw new Error("Email destination update failed");
 }

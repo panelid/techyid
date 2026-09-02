@@ -2,7 +2,7 @@
 // Parse raw RFC822/MIME email jadi body teks bersih yang enak dibaca.
 // Handle: multipart/*, quoted-printable, base64, text/html -> teks, reaksi Gmail.
 //
-// Alasan: worker door-email-inbox nyimpen `raw` mentah (headers + boundary + QP)
+// Alasan: worker techy-email-inbox nyimpen `raw` mentah (headers + boundary + QP)
 // ke kolom D1 `body_text`. Route detail dulu cuma slice setelah `\r\n\r\n`, jadi
 // yang tampil malah MIME mentah (--0000..., =F0=9F..., dst).
 

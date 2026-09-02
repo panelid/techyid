@@ -16,7 +16,7 @@ export default function BioPage({ slug, links }: {
     <div style={styles.container}>
       <div style={styles.card}>
         <div style={styles.avatar}>🌐</div>
-        <h1 style={styles.title}>door.id/{slug}</h1>
+        <h1 style={styles.title}>techy.id/{slug}</h1>
         <p style={styles.subtitle}>Tautan pilihan oleh kreator</p>
         
         <div style={styles.linksContainer}>
@@ -40,7 +40,7 @@ export default function BioPage({ slug, links }: {
         </div>
 
         <div style={styles.footer}>
-          <a href="https://door.id" style={styles.brand}>⚡ Powered by door.id</a>
+          <a href="https://techy.id" style={styles.brand}>⚡ Powered by techy.id</a>
         </div>
       </div>
     </div>

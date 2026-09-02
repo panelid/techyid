@@ -36,8 +36,8 @@ export default function DashboardEmailPage() {
 
   // Sender settings
   const [newLocal, setNewLocal] = useState("");
-  const [newDomain, setNewDomain] = useState("x.door.id");
-  const [availableDomains, setAvailableDomains] = useState<string[]>(["x.door.id"]);
+  const [newDomain, setNewDomain] = useState("techy.id");
+  const [availableDomains, setAvailableDomains] = useState<string[]>(["techy.id"]);
   const [allDomains, setAllDomains] = useState<{ domain: string; resend_status: string; email_status: string; zone_status: string; is_verified: number }[]>([]);
   const [aliasLoading, setAliasLoading] = useState(false);
   const [aliasMsg, setAliasMsg] = useState<{ type: "success" | "error"; msg: string } | null>(null);
@@ -91,9 +91,9 @@ export default function DashboardEmailPage() {
         const sendable = domains
           .filter((d: any) => d.is_verified)
           .map((d: any) => d.domain);
-        setAvailableDomains(["x.door.id", ...sendable]);
-        if (!sendable.includes(newDomain) && newDomain !== "x.door.id") {
-          if (!domains.some((d: any) => d.domain === newDomain)) setNewDomain("x.door.id");
+        setAvailableDomains(["techy.id", ...sendable]);
+        if (!sendable.includes(newDomain) && newDomain !== "techy.id") {
+          if (!domains.some((d: any) => d.domain === newDomain)) setNewDomain("techy.id");
         }
       }
     } catch {}
@@ -625,7 +625,7 @@ export default function DashboardEmailPage() {
               {showComposeHelp && (
                 <div style={{ marginTop: 10, border: "2px solid #000", background: "#fafafa", padding: 14, fontSize: 13, lineHeight: 1.7 }}>
                   <p style={{ margin: "0 0 8px" }}><b>📤 Tab Terkirim?</b> Riwayat semua email yang kamu kirim + status <b>DIBACA</b> (penerima membuka email). Status cuma akurat jika penerima membiarkan gambar dimuat (Gmail menyalakan secara default; beberapa klien memblokirnya).</p>
-                  <p style={{ margin: "0 0 8px" }}><b>✉️ Alamat pengirim?</b> Pakai alias <b>@x.door.id</b> (gratis) atau domain custom. Atur di tab <b>Pengirim</b>.</p>
+                  <p style={{ margin: "0 0 8px" }}><b>✉️ Alamat pengirim?</b> Pakai alias <b>@techy.id</b> (gratis) atau domain custom. Atur di tab <b>Pengirim</b>.</p>
                   <p style={{ margin: 0 }}><b>📥 Balasan?</b> Masuk ke tab <b>Inbox</b> (jika domain sudah verifikasi + Email Routing aktif).</p>
                 </div>
               )}
@@ -640,7 +640,7 @@ export default function DashboardEmailPage() {
             <div style={{ ...S.card, padding: 16, marginBottom: 20, background: "#FFFBEB", boxShadow: "4px 4px 0 #000" }}>
               <div style={{ fontWeight: 900, fontSize: 14, marginBottom: 6 }}>💡 Alamat Pengirim</div>
               <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>
-                Atur alamat email yang dipakai saat kirim email. Kamu bisa bikin alamat pakai <b>x.door.id</b> (gratis) atau domain custom kamu sendiri. Yang ditandai ★ jadi pengirim default.
+                Atur alamat email yang dipakai saat kirim email. Kamu bisa bikin alamat pakai <b>techy.id</b> (gratis) atau domain custom kamu sendiri. Yang ditandai ★ jadi pengirim default.
               </div>
             </div>
 
@@ -705,7 +705,7 @@ export default function DashboardEmailPage() {
               <div style={{ fontSize: 12, color: "#666", marginBottom: 14, lineHeight: 1.5 }}>
                 <b>Terima email</b> (Cloudflare Email Routing): unlimited, langsung aktif untuk semua domain.<br />
                 <b>Kirim email</b> (Resend): maksimal 3 domain. Status <b>✓ Kirim</b> = bisa kirim, <b>⏳</b> = belum verified.
-                <br />Kalau domain utama sudah punya MX lain (Zoho/Workspace), buat <b>subdomain</b> (mis. <code>email.{newDomain === "x.door.id" ? "domain.com" : newDomain}</code>) sebagai domain baru untuk email.
+                <br />Kalau domain utama sudah punya MX lain (Zoho/Workspace), buat <b>subdomain</b> (mis. <code>email.{newDomain === "techy.id" ? "domain.com" : newDomain}</code>) sebagai domain baru untuk email.
               </div>
               {allDomains.length === 0 ? (
                 <div style={{ color: "#888", fontSize: 13, padding: "12px 0" }}>Belum ada domain. Tambah di menu Domain.</div>

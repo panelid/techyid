@@ -86,7 +86,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     if (!domain) return NextResponse.json({ error: "Domain not found" }, { status: 404 });
 
     // We NEVER delete the Cloudflare zone (it belongs to the user, may be managed elsewhere).
-    // Only remove resources Door.id created.
+    // Only remove resources Techy.id created.
 
     if (domain.email_rule_id && domain.zone_id) {
       await deleteEmailRule(domain.zone_id, domain.email_rule_id).catch((e) => console.warn("email rule", e?.message));

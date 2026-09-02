@@ -7,7 +7,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Door.id",
+  title: "Techy.id",
   description: "Short link & link-in-bio platform",
 };
 

@@ -8,7 +8,7 @@ export default function LandingPage() {
           <div className="w-8 h-8 bg-violet-600 rounded flex items-center justify-center text-white font-bold">
             D
           </div>
-          <span className="text-xl font-bold">Door.id</span>
+          <span className="text-xl font-bold">Techy.id</span>
         </div>
       </header>
       
