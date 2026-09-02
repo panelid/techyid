@@ -89,4 +89,7 @@ export async function runMigrations(db: any) {
   try { await db.prepare(`ALTER TABLE sent_emails ADD COLUMN clicked_at TEXT`).run(); } catch {}
   try { await db.prepare(`ALTER TABLE email_tracking ADD COLUMN hit_count INTEGER DEFAULT 0`).run(); } catch {}
   try { await db.prepare(`ALTER TABLE email_tracking ADD COLUMN last_hit_at TEXT`).run(); } catch {}
+
+  // 0013: body_text column on emails (used by inbox/[id] detail view)
+  try { await db.prepare(`ALTER TABLE emails ADD COLUMN body_text TEXT`).run(); } catch {}
 }

@@ -18,7 +18,7 @@ export async function GET(
         "SELECT s.id, s.from_addr, s.to_addr, s.subject, s.body, s.status, s.created_at, s.opened_at, s.clicked_at, s.resend_id, " +
         "(SELECT hit_count FROM email_tracking t WHERE t.sent_email_id = s.id) AS hit_count, " +
         "(SELECT last_hit_at FROM email_tracking t WHERE t.sent_email_id = s.id) AS last_hit_at, " +
-        "(SELECT click_count FROM email_tracking t WHERE t.sent_email_id = s.id) AS click_count " +
+        "(SELECT hit_count FROM email_tracking t WHERE t.sent_email_id = s.id) AS click_count " +
         "FROM sent_emails s WHERE s.id = ? AND s.user_id = ? LIMIT 1"
       )
       .bind(id, user.userId)
