@@ -80,4 +80,13 @@ export async function runMigrations(db: any) {
   } catch (e: any) {
     console.error("[DB] Migration 0010 failed:", e?.message);
   }
+
+  // 0011: spam scoring columns on emails (used by inbox query)
+  try { await db.prepare(`ALTER TABLE emails ADD COLUMN spam_score REAL DEFAULT 0`).run(); } catch {}
+  try { await db.prepare(`ALTER TABLE emails ADD COLUMN spam_reasons TEXT`).run(); } catch {}
+
+  // 0012: click/open tracking columns (used by sent list + tracking endpoints)
+  try { await db.prepare(`ALTER TABLE sent_emails ADD COLUMN clicked_at TEXT`).run(); } catch {}
+  try { await db.prepare(`ALTER TABLE email_tracking ADD COLUMN hit_count INTEGER DEFAULT 0`).run(); } catch {}
+  try { await db.prepare(`ALTER TABLE email_tracking ADD COLUMN last_hit_at TEXT`).run(); } catch {}
 }
