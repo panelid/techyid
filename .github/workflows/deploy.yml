@@ -29,11 +29,12 @@ jobs:
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
           CF_API_EMAIL: ${{ secrets.CF_API_EMAIL }}
         run: |
-          echo "$(openssl rand -hex 32)" | npx wrangler secret put SESSION_SECRET --api-key "$CF_GLOBAL_KEY" --account-id "$CLOUDFLARE_ACCOUNT_ID"
-          printf '%s' "$RESEND_API_KEY" | npx wrangler secret put RESEND_API_KEY --api-key "$CF_GLOBAL_KEY" --account-id "$CLOUDFLARE_ACCOUNT_ID"
-          printf '%s' "$CF_GLOBAL_KEY" | npx wrangler secret put CF_API_TOKEN --api-key "$CF_GLOBAL_KEY" --account-id "$CLOUDFLARE_ACCOUNT_ID"
-          printf '%s' "$CF_ZONE_ID" | npx wrangler secret put CF_ZONE_ID --api-key "$CF_GLOBAL_KEY" --account-id "$CLOUDFLARE_ACCOUNT_ID"
-          printf '%s' "$CF_API_EMAIL" | npx wrangler secret put CF_API_EMAIL --api-key "$CF_GLOBAL_KEY" --account-id "$CLOUDFLARE_ACCOUNT_ID"
+          export CLOUDFLARE_API_KEY="$CF_GLOBAL_KEY"
+          echo "$(openssl rand -hex 32)" | npx wrangler secret put SESSION_SECRET
+          printf '%s' "$RESEND_API_KEY" | npx wrangler secret put RESEND_API_KEY
+          printf '%s' "$CF_GLOBAL_KEY" | npx wrangler secret put CF_API_TOKEN
+          printf '%s' "$CF_ZONE_ID" | npx wrangler secret put CF_ZONE_ID
+          printf '%s' "$CF_API_EMAIL" | npx wrangler secret put CF_API_EMAIL
       - name: Deploy to Cloudflare Workers via wrangler
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
