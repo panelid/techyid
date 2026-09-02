@@ -5,6 +5,37 @@
 export async function runMigrations(db: any) {
   if (!db) return;
 
+  // 0007: sent_emails + email_tracking
+  try {
+    await db.prepare(`
+      CREATE TABLE IF NOT EXISTS sent_emails (
+        id TEXT PRIMARY KEY,
+        user_id TEXT NOT NULL,
+        from_addr TEXT NOT NULL,
+        to_addr TEXT NOT NULL,
+        subject TEXT,
+        status TEXT NOT NULL DEFAULT 'sent',
+        resend_id TEXT,
+        created_at TEXT DEFAULT (datetime('now')),
+        opened_at TEXT,
+        FOREIGN KEY(user_id) REFERENCES users(id)
+      )
+    `).run();
+    await db.prepare(`
+      CREATE TABLE IF NOT EXISTS email_tracking (
+        id TEXT PRIMARY KEY,
+        sent_email_id TEXT NOT NULL,
+        token TEXT NOT NULL UNIQUE,
+        FOREIGN KEY(sent_email_id) REFERENCES sent_emails(id)
+      )
+    `).run();
+    await db.prepare(`CREATE INDEX IF NOT EXISTS idx_sent_emails_user ON sent_emails(user_id)`).run();
+    await db.prepare(`CREATE INDEX IF NOT EXISTS idx_email_tracking_token ON email_tracking(token)`).run();
+    try { await db.prepare(`ALTER TABLE sent_emails ADD COLUMN body TEXT`).run(); } catch {}
+  } catch (e: any) {
+    console.error("[DB] Migration 0007 failed:", e?.message);
+  }
+
   // 0008: domain_type + parent_domain for email-only subdomains
   try { await db.prepare(`ALTER TABLE custom_domains ADD COLUMN domain_type TEXT NOT NULL DEFAULT 'full'`).run(); } catch {}
   try { await db.prepare(`ALTER TABLE custom_domains ADD COLUMN parent_domain TEXT`).run(); } catch {}
