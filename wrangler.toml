@@ -2,6 +2,7 @@ name = "techy-id"
 main = ".open-next/worker.js"
 compatibility_date = "2026-08-09"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
 
 [assets]
 directory = ".open-next/assets"
@@ -17,15 +18,3 @@ database_id = "8fcbea87-08e4-4df1-b145-222db8b8dd20"
 [[kv_namespaces]]
 binding = "SLUGS"
 id = "367138400cb041e5b500fd2517ef99ef"
-
-# Preview deployments use a separate KV namespace so they don't burn
-# the production KV write quota or pollute prod cache.
-[env.preview]
-[[env.preview.kv_namespaces]]
-binding = "SLUGS"
-id = "b8c9395aedb4487e9d6fbddad57c18ea"
-
-# Custom domain: serve techy.id directly from this worker
-[[routes]]
-pattern = "techy.id/*"
-custom_domain = true
