@@ -6,7 +6,7 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 export async function POST(req: NextRequest) {
   try {
     const { env } = getCloudflareContext() as any;
-    const resendKey = env?.RESEND_API_KEY;
+    const resendKey = process.env.RESEND_API_KEY || env?.RESEND_API_KEY;
     const admin = await getAdminFromCookies();
     if (!admin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     const db = getDB();
