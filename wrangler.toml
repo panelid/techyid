@@ -21,3 +21,4 @@ id = "367138400cb041e5b500fd2517ef99ef"
 
 [[routes]]
 pattern = "techy.id/*"
+zone_name = "techy.id"
