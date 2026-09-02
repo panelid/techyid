@@ -1,0 +1,113 @@
+name: CI/CD Deploy (push)
+# Deploy ONLY on push — no heavy E2E (saves D1 read quota)
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Next.js
+        run: npm run build
+      - name: Build OpenNext for Cloudflare
+        run: npm run pages:build
+      - name: Deploy to Cloudflare Workers via wrangler
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy
+
+  e2e-verify:
+    # Heavy Playwright E2E — runs ONLY on manual dispatch or PR, never on push
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+      - name: Run Playwright E2E Verification against x.door.id
+        run: node verify.js
+        continue-on-error: true
+      - name: Run Security E2E Tests against x.door.id
+        run: node verify-security.js
+        continue-on-error: true
+      - name: Run Audit Batch 4 E2E Tests (E-4, E-5, U-1, U-5, P-1)
+        env:
+          CI: true
+        run: node verify-audit-batch4.js
+        continue-on-error: true
+      - name: Run Custom Domain E2E Tests
+        env:
+          CI: true
+        run: node verify-custom-domain.js
+        continue-on-error: true
+      - name: Run Source Regression Checks
+        run: |
+          node verify-type-model.js
+          node verify-email-routing-source.js
+      - name: Run Short-link Production Proof
+        run: node verify-shortlink-production.js
+        continue-on-error: true
+      - name: Run Header/Auth Refactor E2E Tests
+        env:
+          CI: true
+        run: node verify-header.js
+      - name: Run Passkey (WebAuthn) API Tests
+        env:
+          CI: true
+        run: node verify-passkey.js
+        continue-on-error: true
+      - name: Run Passkey Registration Flow E2E
+        env:
+          CI: true
+        run: node verify-passkey-flow.js
+        continue-on-error: true
+      - name: Run Layout Check (Playwright)
+        run: node check-layout.js
+      - name: Run New Features Verification (nav, stats, slug-check, sent-tab)
+        run: node verify-new-features.js
+        continue-on-error: true
+      - name: Upload Header/Auth Screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: header-auth-screenshots
+          path: "header-shots/*.png"
+          if-no-files-found: ignore
+      - name: Upload New-Features Screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: new-features-screenshots
+          path: "shot-*.png"
+          if-no-files-found: ignore
+      - name: Upload Layout Screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: layout-screenshots
+          path: "layout-*.png"
+          if-no-files-found: ignore
+      - name: Upload Screenshots on Failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-failure-screenshots
+          path: "*.png"

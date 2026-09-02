@@ -1,0 +1,9 @@
+name = "door-email-inbox"
+main = "worker.js"
+compatibility_date = "2026-08-09"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "door-db"
+database_id = "b237dace-8ea4-4038-a386-c201f6bd84f2"

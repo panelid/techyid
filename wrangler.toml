@@ -1,0 +1,26 @@
+name = "door-of-cloudflare"
+main = ".open-next/worker.js"
+compatibility_date = "2026-08-09"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# CF_API_TOKEN and CF_ZONE_ID are set as Worker secrets.
+
+[[d1_databases]]
+binding = "DB"
+database_name = "door-db"
+database_id = "b237dace-8ea4-4038-a386-c201f6bd84f2"
+
+[[kv_namespaces]]
+binding = "SLUGS"
+id = "4d703c654beb43b48a0e1775744cc14a"
+
+# Preview deployments use a separate KV namespace so they don't burn
+# the production KV write quota or pollute prod cache.
+[env.preview]
+[[env.preview.kv_namespaces]]
+binding = "SLUGS"
+id = "b8c9395aedb4487e9d6fbddad57c18ea"

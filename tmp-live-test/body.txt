@@ -1,0 +1,1 @@
+{"success":true,"user":{"id":"39764ba4-2c0d-4e7d-8f14-969807d4a26a","email":"hermes-test-1787294030@example.com"}}
