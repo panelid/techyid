@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         const res = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: { Authorization: `*** ${resendKey}`, "Content-Type": "application/json" },
-          body: JSON.stringify({ from: "noreply@mail.panel.id", to: batch, subject, html }),
+          body: JSON.stringify({ from: "noreply@techy.id", to: batch, subject, html }),
         });
         if (res.ok) { sent += batch.length; }
         else {
