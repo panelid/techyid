@@ -2,6 +2,7 @@ name = "techy-email-inbox"
 main = "worker.js"
 compatibility_date = "2026-08-09"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
 
 [[d1_databases]]
 binding = "DB"
