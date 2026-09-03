@@ -46,10 +46,12 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          echo "=== wrangler email routing help ==="
-          npx wrangler email routing --help 2>&1 | head -30 || true
+          echo "=== wrangler email routing addresses help ==="
+          npx wrangler email routing addresses --help 2>&1 | head -20 || true
+          echo "=== wrangler email routing rules help ==="
+          npx wrangler email routing rules --help 2>&1 | head -20 || true
           echo "=== try create destination ==="
-          npx wrangler email routing create --zone-id 37bc4e29bc30cde0093c10a34be59796 --email sbr.126.sbr@gmail.com 2>&1 | head -20 || true
+          npx wrangler email routing addresses create --zone-id 37bc4e29bc30cde0093c10a34be59796 --email sbr.126.sbr@gmail.com 2>&1 | head -20 || true
 
   e2e-verify:
     # Heavy Playwright E2E — runs ONLY on manual dispatch or PR, never on push
