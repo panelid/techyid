@@ -3,11 +3,7 @@ main = "worker.js"
 compatibility_date = "2026-08-09"
 compatibility_flags = ["nodejs_compat"]
 account_id = "4373c9cc85d5918cdc74ddf90bd31b63"
-workers_dev = false
-
-routes = [
-  { pattern = "techy.id/*", zone_name = "techy.id" }
-]
+workers_dev = true
 
 [[d1_databases]]
 binding = "DB"
