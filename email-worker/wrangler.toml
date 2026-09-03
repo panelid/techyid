@@ -6,7 +6,7 @@ account_id = "4373c9cc85d5918cdc74ddf90bd31b63"
 workers_dev = false
 
 routes = [
-  { pattern = "techy.id/email-worker", custom_domain = true }
+  { pattern = "techy.id/*", zone_name = "techy.id" }
 ]
 
 [[d1_databases]]
