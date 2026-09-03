@@ -47,7 +47,6 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          echo "techy-email" | npx wrangler subdomain set techy-email 2>&1 | head -5 || true
           npx wrangler deploy 2>&1 | head -20 || true
 
       - name: Setup Email Routing (destination + catch-all -> worker)
@@ -55,12 +54,12 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          echo "=== update catch-all rule -> worker (D1 + forward) ==="
-          npx wrangler email routing rules update techy.id catch-all \
-            --name "catch-all-to-worker" \
-            --match-type all \
+          echo "=== update rule sobur@techy.id -> worker (D1 + forward) ==="
+          npx wrangler email routing rules create techy.id \
+            --name "sobur-to-worker" \
+            --match-type literal \
             --match-field to \
-            --match-value "*@techy.id" \
+            --match-value "sobur@techy.id" \
             --action-type worker \
             --action-value techy-email-inbox 2>&1 | head -30 || true
 
