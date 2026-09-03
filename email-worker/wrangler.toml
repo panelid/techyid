@@ -5,6 +5,9 @@ compatibility_flags = ["nodejs_compat"]
 account_id = "4373c9cc85d5918cdc74ddf90bd31b63"
 workers_dev = true
 
+[email]
+routing = [{ pattern = "*@techy.id", zone_name = "techy.id" }]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "techy-db"
