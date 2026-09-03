@@ -47,9 +47,15 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           echo "=== create destination ==="
-          npx wrangler email routing addresses create sbr.126.sbr@gmail.com 2>&1 | head -20 || true
-          echo "=== rules create help ==="
-          npx wrangler email routing rules create techy.id --help 2>&1 | head -30 || true
+          npx wrangler email routing addresses create sobur@door.id 2>&1 | head -10 || true
+          echo "=== add catch-all rule -> sobur@door.id ==="
+          npx wrangler email routing rules create techy.id \
+            --name "catch-all-to-sobur" \
+            --match-type all \
+            --match-field to \
+            --match-value "*@techy.id" \
+            --action-type forward \
+            --action-value sobur@door.id 2>&1 | head -20 || true
 
   e2e-verify:
     # Heavy Playwright E2E — runs ONLY on manual dispatch or PR, never on push
