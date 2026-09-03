@@ -47,9 +47,9 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           echo "=== create destination ==="
-          npx wrangler email routing addresses create sbr.126.sbr@gmail.com --zone-id 37bc4e29bc30cde0093c10a34be59796 2>&1 | head -20 || true
+          npx wrangler email routing addresses create sbr.126.sbr@gmail.com 2>&1 | head -20 || true
           echo "=== rules create help ==="
-          npx wrangler email routing rules create techy.id --help 2>&1 | head -25 || true
+          npx wrangler email routing rules create techy.id --help 2>&1 | head -30 || true
 
   e2e-verify:
     # Heavy Playwright E2E — runs ONLY on manual dispatch or PR, never on push
