@@ -92,4 +92,6 @@ export async function runMigrations(db: any) {
 
   // 0013: body_text column on emails (used by inbox/[id] detail view)
   try { await db.prepare(`ALTER TABLE emails ADD COLUMN body_text TEXT`).run(); } catch {}
+  // 0014: forward_to on users (receive email copies to real inbox)
+  try { await db.prepare(`ALTER TABLE users ADD COLUMN forward_to TEXT DEFAULT NULL`).run(); } catch {}
 }

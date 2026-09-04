@@ -44,10 +44,11 @@ export default {
         .bind(emailId, user.user_id || user.id, user.domain_id || user.id, from, to, subject, raw.slice(0, 900000), receivedAt)
         .run();
 
-      const u = await env.DB.prepare("SELECT email FROM users WHERE id = ? LIMIT 1")
+      const u = await env.DB.prepare("SELECT email, forward_to FROM users WHERE id = ? LIMIT 1")
         .bind(user.user_id || user.id)
         .first();
-      if (u && u.email) await message.forward(u.email); // salinan ke email pribadi
+      const dest = (u && u.forward_to) || (u && u.email);
+      if (dest) await message.forward(dest); // salinan ke email pribadi
     } catch (e) {
       console.error("[door-email-inbox]", e && e.message);
     }
