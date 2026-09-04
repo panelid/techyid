@@ -8,12 +8,28 @@ export default {
       const subject = message.headers.get("subject") || "(no subject)";
       const toDomain = (to.split("@")[1] || "").toLowerCase();
 
-      const d = await env.DB.prepare(
-        "SELECT user_id, id FROM custom_domains WHERE domain = ? LIMIT 1"
+      // Main domain (techy.id) atau custom domain: cari user by email tujuan dulu,
+      // fallback ke custom_domains mapping.
+      let user = await env.DB.prepare(
+        "SELECT id AS user_id, id AS domain_id FROM users WHERE email = ? LIMIT 1"
       )
-        .bind(toDomain)
+        .bind(to)
         .first();
-      if (!d) return; // domain tidak terdaftar — buang
+      if (!user && toDomain === "techy.id") {
+        // fallback: admin user pertama di domain utama
+        user = await env.DB.prepare(
+          "SELECT id AS user_id, '' AS domain_id FROM users WHERE is_admin = 1 LIMIT 1"
+        ).first();
+      }
+      if (!user) {
+        const d = await env.DB.prepare(
+          "SELECT user_id, id FROM custom_domains WHERE domain = ? LIMIT 1"
+        )
+          .bind(toDomain)
+          .first();
+        if (!d) return; // domain tidak terdaftar — buang
+        user = d;
+      }
 
       let raw = "";
       try {
@@ -25,11 +41,11 @@ export default {
       await env.DB.prepare(
         "INSERT INTO emails (id, user_id, domain_id, from_addr, to_addr, subject, body_text, received_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
       )
-        .bind(emailId, d.user_id, d.id, from, to, subject, raw.slice(0, 900000), receivedAt)
+        .bind(emailId, user.user_id || user.id, user.domain_id || user.id, from, to, subject, raw.slice(0, 900000), receivedAt)
         .run();
 
       const u = await env.DB.prepare("SELECT email FROM users WHERE id = ? LIMIT 1")
-        .bind(d.user_id)
+        .bind(user.user_id || user.id)
         .first();
       if (u && u.email) await message.forward(u.email); // salinan ke email pribadi
     } catch (e) {
