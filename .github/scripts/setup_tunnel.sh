@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -uo pipefail
+exec > >(tee /tmp/tci.log 2>/dev/null) 2>&1
 SUMMARY="${GITHUB_STEP_SUMMARY:-/tmp/sum.md}"
 : > "$SUMMARY"
 say(){ echo "$1"; echo "$1" >> "$SUMMARY"; }
