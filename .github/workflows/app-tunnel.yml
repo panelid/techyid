@@ -1,8 +1,9 @@
-name: setup-tunnel
+name: Techy App Tunnel Setup
 
 on:
   workflow_dispatch:
   push:
+    branches: [ main ]
     paths:
       - '.github/scripts/setup_tunnel.sh'
       - '.github/workflows/app-tunnel.yml'
@@ -22,5 +23,5 @@ jobs:
       VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
     steps:
       - uses: actions/checkout@v4
-      - name: Setup tunnel
+      - name: Setup named tunnel app.techy.id
         run: bash .github/scripts/setup_tunnel.sh
