@@ -1,0 +1,22 @@
+name: setup-tunnel
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: *** secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CF_ZONE: ${{ secrets.CF_ZONE_ID }}
+      VPS_HOST: ${{ vars.VPS_HOST }}
+      VPS_PORT: ${{ vars.VPS_PORT }}
+      VPS_USER: ${{ vars.VPS_USER }}
+      VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup tunnel
+        run: bash .github/scripts/setup_tunnel.sh
