@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -uo pipefail
-exec > >(tee /tmp/tci.log 2>/dev/null) 2>&1
 mkdir -p "$HOME/.ssh" 2>/dev/null || true
 echo "DIAG CF_TOKEN_len=${#CF_TOKEN} CF_ACCT_len=${#CF_ACCT} CF_ZONE_len=${#CF_ZONE} VPS_SSH_KEY_len=${#VPS_SSH_KEY} VPS_HOST=$VPS_HOST VPS_PORT=$VPS_PORT VPS_USER=$VPS_USER"
 SUMMARY="${GITHUB_STEP_SUMMARY:-/tmp/sum.md}"

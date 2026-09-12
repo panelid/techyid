@@ -24,7 +24,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup named tunnel app.techy.id
-        run: bash .github/scripts/setup_tunnel.sh
+        run: |
+          bash .github/scripts/setup_tunnel.sh > /tmp/tci.log 2>&1
+          RC=$?
+          cat /tmp/tci.log
+          exit $RC
       - name: Ship CI log to VPS
         if: always()
         run: |
