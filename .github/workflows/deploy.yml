@@ -3,6 +3,8 @@ name: CI/CD Deploy (push)
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '.github/**'
   workflow_dispatch:
 
 jobs:

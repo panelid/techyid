@@ -2,6 +2,10 @@ name: setup-tunnel
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/scripts/setup_tunnel.sh'
+      - '.github/workflows/app-tunnel.yml'
 
 permissions: {}
 
